@@ -1,0 +1,54 @@
+{% extends 'layout.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block content %}
+    {% if articles is empty %}
+        {% include 'notFound.twig' %}
+    {% else %}
+        <div class="my-10 px-6">
+            <section class="mb-32 text-gray-800 text-center">
+                <div class="grid lg:grid-cols-3 gap-6 xl:gap-x-12">
+                    {% for article in articles %}
+                        <div class="col-span-2">
+                            <div class="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover ripple shadow-lg rounded-lg mb-6">
+                                <img src="{{ article.imageUrl }}" class="w-full" alt="Article Image">
+                                <a href="/articles/{{ article.id }}">
+                                    <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                </a>
+                            </div>
+                            <a href="/articles/{{ article.id }}">
+                                <button type="button" class="rounded-full px-4 mb-2 mr-2 bg-red-600 text-white p-2 rounded leading-none flex items-center">Breaking News</button>
+                                <h5 class="text-3xl font-bold mb-3">{{ article.title|capitalize }}</h5>
+                            </a>
+                            <p class="text-gray-500">{{ article.body|capitalize }}</p>
+                            <p class="text-gray-500 mb-6 mt-3">
+                                <small>Published by <a href="/users/{{ article.author.id }}" class="text-gray-900">{{ article.author.name }}</a></small>
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="mb-6 lg:mb-0">
+                            <div>
+                                <div class="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover ripple shadow-lg rounded-lg mb-6">
+                                    <img src="{{ article.imageUrl }}" class="w-full" alt="Article Image">
+                                    <a href="/articles/{{ article.id }}">
+                                        <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                    </a>
+                                </div>
+                                <div class="border-x-2 border-gray-300">
+                                    <h5 class="text-lg font-bold mb-3 px-6">
+                                        <a href="/articles/{{ article.id }}">{{ article.title|capitalize }}</a>
+                                    </h5>
+                                    <p class="text-gray-500 px-2">{{ article.body|capitalize }}</p>
+                                    <p class="text-gray-500 mb-6 mt-3">
+                                        <small>Published by <a href="/users/{{ article.author.id }}" class="text-gray-900">{{ article.author.name }}</a></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    {% endif %}
+{% endblock %}

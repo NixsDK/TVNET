@@ -1,0 +1,43 @@
+{% extends 'layout.twig' %}
+
+{% block title %}Article {{ article.id }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5 mx-auto">
+        <section class="mb-3 text-gray-800">
+            <div class="flex flex-wrap justify-center mb-3">
+                <div class="w-full md:w-2/3 px-3">
+                    <div class="relative overflow-hidden bg-no-repeat bg-cover ripple shadow-lg rounded-lg mb-6">
+                        <img src="{{ article.imageUrl }}" alt="Placeholder image" class="h-100">
+                    </div>
+                    <h5 class="text-xl font-bold mb-3">{{ article.title|capitalize }}</h5>
+                    <p class="mb-6">
+                        {{ article.body|capitalize }}
+                    </p>
+                    <p class="text-gray-500 mb-4">
+                        <small>Published <u>{{ 'now'|date('Y') }}</u> by
+                            <a href="/users/{{ article.author.id }}" class="text-gray-900">{{ article.author.name }}</a></small>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div class="antialiased mx-auto max-w-screen-sm">
+            <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments ({{ comments|length }})</h3>
+            <div class="space-y-4">
+                {% for comment in comments %}
+                    <div class="flex">
+                        <div class="mr-3">
+                            <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="https://placehold.co/50" alt="">
+                        </div>
+                        <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                            <strong>{{ comment.name|capitalize }}</strong> <span class="text-xs text-gray-400">{{ comment.email }}</span>
+                            <p class="text-sm">
+                                {{ comment.body|capitalize }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

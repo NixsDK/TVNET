@@ -1,0 +1,6 @@
+{
+    "name": "niksdk/tvnet",
+    "require": {
+        "twig/twig": "^3.6"
+    }
+}
